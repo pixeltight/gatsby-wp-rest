@@ -10,13 +10,13 @@ const BlogPostTemplate = ({ data }, index) => {
   let featuredImg = undefined
 
   if (postData.featured_media) {
-    featuredImg = postData.featured_media.localFile.childImageSharp.fixed
+    featuredImg = postData.featured_media.localFile.childImageSharp.fluid
   }
 
   return (
     <Layout>
       <SEO title={postData.title} description={postData.excerpt} />
-      {featuredImg && <Img fixed={featuredImg} />}
+      {featuredImg && <Img fluid={featuredImg} />}
       <h3
         style={{ fontSize: 33, marginTop: 0 }}
         dangerouslySetInnerHTML={{ __html: postData.title }}
@@ -41,8 +41,9 @@ export const query = graphql`
       featured_media {
         localFile {
           childImageSharp {
-            fixed(width: 1000) {
-              ...GatsbyImageSharpFixed
+            fluid(maxWidth: 1000, quality: 100) {
+              ...GatsbyImageSharpFluid
+              presentationWidth
             }
           }
         }

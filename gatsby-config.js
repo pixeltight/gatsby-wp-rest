@@ -27,7 +27,7 @@ module.exports = {
         start_url: `/`,
         background_color: `#663399`,
         theme_color: `#663399`,
-        display: `minimal-ui`,
+        display: `standalone`,
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
@@ -37,7 +37,7 @@ module.exports = {
         baseUrl: `${process.env.GATSBY_WP_URL}`,
         protocol: `${process.env.GATSBY_WP_PROTOCOL}`,
         hostingWPCOM: false,
-        useACF: false,
+        useACF: true,
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality

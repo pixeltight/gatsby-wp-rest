@@ -10,17 +10,17 @@ export default ({ data }) => (
   <Layout>
     <SEO title='Home' />
     <h1>WP API Test</h1>
-    {data.allWordpressPost.edges.map(({ node }) => (
-      <div>
-        <h3>
-          <Link to={`${node.slug}`} key={node.id}>
-            {node.title}
-          </Link>
-        </h3>
-        <time>{node.date}</time>
-        <div dangerouslySetInnerHTML={{ __html: node.excerpt }} />
-      </div>
-    ))}
+    {data.allWordpressPost.edges.map(({ node }) => {
+      return (
+        <div title='test title' key={node.wordpress_id}>
+          <h3>
+            <Link to={`${node.slug}`}>{node.title}</Link>
+          </h3>
+          <time>{node.date}</time>
+          <div dangerouslySetInnerHTML={{ __html: node.excerpt }} />
+        </div>
+      )
+    })}
   </Layout>
 )
 
@@ -33,6 +33,7 @@ export const pageQuery = graphql`
           excerpt
           slug
           date(formatString: "lll")
+          wordpress_id
         }
       }
     }
