@@ -1,12 +1,22 @@
+let activeEnv =
+  process.env.GATSBY_ACTIVE_ENV || process.env.NODE_ENV || "development"
+
+console.log(`Using environment config: '${activeEnv}'`)
+
 require("dotenv").config({
-  path: `.env.${process.env.NODE_ENV}`,
+  path: `.env.${activeEnv}`,
 })
+
+console.log(
+  `This Wordpress Endpoint is being used: ${process.env.WORDPRESS_URL}`
+)
 
 module.exports = {
   siteMetadata: {
     title: `WP API Test`,
     description: `This is a test blog for WP REST / Gatsby graphQl intergration. description field.`,
     author: `@gatsbyjs`,
+    siteUrl: `http://localhost:8000`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -38,8 +48,24 @@ module.exports = {
         protocol: `${process.env.GATSBY_WP_PROTOCOL}`,
         hostingWPCOM: false,
         useACF: true,
+        includeRoutes: [
+          `**/categories`,
+          `**/posts`,
+          `**/pages`,
+          `**/tags`,
+          `**/taxonomies`,
+          `**/users`,
+          `**/*/*/menus`,
+          `**/*/*/menu-locations`,
+        ],
+        excludedRoutes: [],
+        normalizer: function ({ entities }) {
+          return entities
+        },
       },
     },
+    `gatsby-plugin-sass`,
+    `gatsby-plugin-sitemap`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     `gatsby-plugin-offline`,

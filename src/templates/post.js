@@ -5,7 +5,7 @@ import SEO from "../components/seo"
 
 import Layout from "../components/layout"
 
-const BlogPostTemplate = ({ data }, index) => {
+const BlogPostTemplate = ({ data }) => {
   const postData = data.wordpressPost
   let featuredImg = undefined
 
@@ -22,6 +22,13 @@ const BlogPostTemplate = ({ data }, index) => {
         dangerouslySetInnerHTML={{ __html: postData.title }}
       />
       <div dangerouslySetInnerHTML={{ __html: postData.content }} />
+      {postData.acf.author && (
+        <ul>
+          <li>{postData.acf.author}</li>
+          <li>{postData.acf.release_year}</li>
+          <li>{postData.acf.book_rating} / 10</li>
+        </ul>
+      )}
     </Layout>
   )
 }
@@ -47,6 +54,11 @@ export const query = graphql`
             }
           }
         }
+      }
+      acf {
+        author
+        book_rating
+        release_year
       }
     }
   }

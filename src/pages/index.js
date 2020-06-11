@@ -14,7 +14,7 @@ export default ({ data }) => (
       return (
         <div title='test title' key={node.wordpress_id}>
           <h3>
-            <Link to={`${node.slug}`}>{node.title}</Link>
+            <Link to={`/post/${node.slug}`}>{node.title}</Link>
           </h3>
           <time>{node.date}</time>
           <div dangerouslySetInnerHTML={{ __html: node.excerpt }} />
